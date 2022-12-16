@@ -15,7 +15,7 @@ public class Tienda {
         
     }
 
-    public ArrayList<Tenis> listaTenis() throws IOException {
+    public  ArrayList<Tenis> listaTenis() throws IOException {
         Agregar ob1 = new Agregar();
         
         Stack<String> pila = new Stack();
