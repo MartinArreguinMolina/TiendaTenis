@@ -16,7 +16,7 @@ public class Agregar {
         String entrada;
         boolean x;
 
-        while ((entrada = bufer.readLine()) != null) {
+        while ((entrada = bufer.readLine()).isEmpty() == false) {
             x = verificarCadena(entrada);
 
             if (x == false) {
