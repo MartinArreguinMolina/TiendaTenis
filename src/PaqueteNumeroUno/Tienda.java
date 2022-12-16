@@ -1,6 +1,8 @@
 package PaqueteNumeroUno;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -41,5 +43,20 @@ public class Tienda {
         }
         
         return listaTenis;
+    }
+    
+    private void menu(ArrayList<Tenis> lista) throws IOException{
+        BufferedReader bufer = new BufferedReader(new InputStreamReader(System.in));
+        String entrada;
+        int n;
+        
+        do{
+            System.out.println("1.Ordenar por orden alfabetico"
+                    + "\n2.Ordenar por precio del mayor al menor"
+                    + "\n3.Ordenar por precio del menor al mayor"
+                    + "4.Salir");
+            System.err.print("R=");
+            n = Integer.parseInt(entrada = bufer.readLine());
+        }while(n < 1 || n > 5);
     }
 }
