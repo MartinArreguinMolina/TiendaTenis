@@ -13,8 +13,10 @@ public class Tienda {
     public static void main(String... args) throws IOException {
         Tienda ob1 = new Tienda();
         ArrayList<Tenis> listaTenis = new ArrayList();
-
+        
         listaTenis = ob1.listaTenis();
+        
+        ob1.menu(listaTenis);
 
     }
 
@@ -34,7 +36,7 @@ public class Tienda {
         while (!pila.isEmpty()) {
             cadena = pila.pop();
 
-            subCadenas = cadena.split(" ");
+            subCadenas = cadena.split(" - ");
 
             tenis = subCadenas[0];
             precio = Double.parseDouble(subCadenas[1]);
@@ -56,7 +58,7 @@ public class Tienda {
                 System.out.println("1.Ordenar por orden alfabetico"
                         + "\n2.Ordenar por precio del mayor al menor"
                         + "\n3.Ordenar por precio del menor al mayor"
-                        + "4.Salir");
+                        + "4.Mostrar");
                 System.err.print("R=");
                 try{
                     
@@ -68,12 +70,16 @@ public class Tienda {
             
             switch(n){
                 case 1:
-                    ordenarPorOrdenAlfabetico(lista);
+                    lista = ordenarPorOrdenAlfabetico(lista);
                     break;
                 case 2:
-                    ordenarPorPrecioMayor(lista);
+                   lista = ordenarPorPrecioMayor(lista);
                     break;
                 case 3:
+                    lista = ordenarPorPrecioMenorAux(lista);
+                    break;
+                case 4:
+                    imprimirLista(lista);
                     break;
             }
 
@@ -89,5 +95,25 @@ public class Tienda {
     private ArrayList<Tenis> ordenarPorPrecioMayor(ArrayList<Tenis> lista){
         Collections.sort(lista , (Tenis uno , Tenis dos) -> new Double (uno.getPrecio()).compareTo(dos.getPrecio()));
         return lista;
-    }  
+    }
+    
+    private ArrayList<Tenis> ordenarPorPrecioMenor(ArrayList<Tenis> lista){
+        Collections.sort(lista, (Tenis uno , Tenis dos) -> new Double (uno.getPrecio()).compareTo(dos.getPrecio()));
+        return lista;
+    }
+    
+    private ArrayList<Tenis> ordenarPorPrecioMenorAux(ArrayList<Tenis> lista){
+        ArrayList<Tenis> listaAux = new ArrayList();
+        
+        for(int i = lista.size() - 1; i >= 0; i--){
+           listaAux.add(lista.get(i));
+        }
+        return listaAux;
+    }
+    
+    private void imprimirLista(ArrayList<Tenis>  lista){
+        for(int i = 0; i < lista.size(); i++){
+            System.out.println(lista.get(i).toString());
+        }
+    }
 }
