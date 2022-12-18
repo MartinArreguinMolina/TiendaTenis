@@ -13,14 +13,13 @@ public class Tienda {
     public static void main(String... args) throws IOException {
         Tienda ob1 = new Tienda();
         ArrayList<Tenis> listaTenis = new ArrayList();
-        
-        listaTenis = ob1.listaTenis();
-        
-        ob1.menu(listaTenis);
 
+        listaTenis = ob1.listaTenis();
+
+        ob1.menu(listaTenis);
     }
 
-    public ArrayList<Tenis> listaTenis() throws IOException {
+    private ArrayList<Tenis> listaTenis() throws IOException {
         Agregar ob1 = new Agregar();
 
         Stack<String> pila = new Stack();
@@ -49,71 +48,92 @@ public class Tienda {
 
     private void menu(ArrayList<Tenis> lista) throws IOException {
         BufferedReader bufer = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<Tenis> listaAux = new ArrayList();
+        
+        listaAux = lista;
         String entrada;
         int n;
         boolean x = false;
 
         do {
             do {
-                System.out.println("1.Ordenar por orden alfabetico"
-                        + "\n2.Ordenar por precio del mayor al menor"
-                        + "\n3.Ordenar por precio del menor al mayor"
-                        + "4.Mostrar");
-                System.err.print("R=");
-                try{
-                    
-                }catch(NumberFormatException e){
+
+                System.out.println("::::::::::ELIGE UNA OPCION::::::::::"
+                        + "\n1.Ordenar por orden alfabetico"
+                        + "\n2.Ordenar por precio del menor al mayor"
+                        + "\n3.Ordenar por precio del mayor al menor"
+                        + "\n4.Mostrar"
+                        + "\n5.Agregar"
+                        + "\nSalir");
+                System.err.print("R= ");
+                try {
+
+                } catch (NumberFormatException e) {
                     System.out.println("DEBES DE DIGITAR UN NUMERO INTENTA DE NUEVO");
                 }
                 n = Integer.parseInt(entrada = bufer.readLine());
             } while (n < 1 || n > 5);
-            
-            switch(n){
+
+            switch (n) {
                 case 1:
                     lista = ordenarPorOrdenAlfabetico(lista);
                     break;
                 case 2:
-                   lista = ordenarPorPrecioMayor(lista);
+                    lista = ordenarPorPrecioMenor(lista);
                     break;
                 case 3:
-                    lista = ordenarPorPrecioMenorAux(lista);
+                    lista = ordenarPorPrecioMayorAux(ordenarPorPrecioMenor(lista));
                     break;
                 case 4:
                     imprimirLista(lista);
+                    break;
+                case 5:
+                    lista = agregarTenis(listaAux);
+                    break;
+                case 6:
+                    x = true;
                     break;
             }
 
         } while (x == false);
 
     }
-    
-    private ArrayList<Tenis> ordenarPorOrdenAlfabetico(ArrayList<Tenis> lista){
-        Collections.sort(lista , (Tenis uno , Tenis dos) -> (uno.getTenis()).compareTo(dos.getTenis()));
+
+    private ArrayList<Tenis> ordenarPorOrdenAlfabetico(ArrayList<Tenis> lista) {
+        Collections.sort(lista, (Tenis uno, Tenis dos) -> (uno.getTenis()).compareTo(dos.getTenis()));
         return lista;
     }
-    
-    private ArrayList<Tenis> ordenarPorPrecioMayor(ArrayList<Tenis> lista){
-        Collections.sort(lista , (Tenis uno , Tenis dos) -> new Double (uno.getPrecio()).compareTo(dos.getPrecio()));
+
+    private ArrayList<Tenis> ordenarPorPrecioMenor(ArrayList<Tenis> lista) {
+        Collections.sort(lista, (Tenis uno, Tenis dos) -> new Double(uno.getPrecio()).compareTo(dos.getPrecio()));
         return lista;
     }
-    
-    private ArrayList<Tenis> ordenarPorPrecioMenor(ArrayList<Tenis> lista){
-        Collections.sort(lista, (Tenis uno , Tenis dos) -> new Double (uno.getPrecio()).compareTo(dos.getPrecio()));
-        return lista;
-    }
-    
-    private ArrayList<Tenis> ordenarPorPrecioMenorAux(ArrayList<Tenis> lista){
+
+    private ArrayList<Tenis> ordenarPorPrecioMayorAux(ArrayList<Tenis> lista) {
         ArrayList<Tenis> listaAux = new ArrayList();
-        
-        for(int i = lista.size() - 1; i >= 0; i--){
-           listaAux.add(lista.get(i));
+
+        for (int i = lista.size() - 1; i >= 0; i--) {
+            listaAux.add(lista.get(i));
         }
         return listaAux;
     }
-    
-    private void imprimirLista(ArrayList<Tenis>  lista){
-        for(int i = 0; i < lista.size(); i++){
+
+    private void imprimirLista(ArrayList<Tenis> lista) {
+        for (int i = 0; i < lista.size(); i++) {
             System.out.println(lista.get(i).toString());
         }
+    }
+
+    private ArrayList<Tenis> agregarTenis(ArrayList<Tenis> listaOriginal) throws IOException {
+        Tienda ob2 = new Tienda();
+        ArrayList<Tenis> lista = new ArrayList();
+        
+        lista = ob2.listaTenis();
+        
+        for(int i = 0; i < lista.size(); i++){
+            listaOriginal.add(lista.get(i));
+        }
+        
+        return listaOriginal;
     }
 }
