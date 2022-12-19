@@ -49,7 +49,7 @@ public class Tienda {
     private void menu(ArrayList<Tenis> lista) throws IOException {
         BufferedReader bufer = new BufferedReader(new InputStreamReader(System.in));
         ArrayList<Tenis> listaAux = new ArrayList();
-        
+
         listaAux = lista;
         String entrada;
         int n;
@@ -72,7 +72,7 @@ public class Tienda {
                     System.out.println("DEBES DE DIGITAR UN NUMERO INTENTA DE NUEVO");
                 }
                 n = Integer.parseInt(entrada = bufer.readLine());
-            } while (n < 1 || n > 5);
+            } while (n < 1 || n > 7);
 
             switch (n) {
                 case 1:
@@ -91,6 +91,9 @@ public class Tienda {
                     lista = agregarTenis(listaAux);
                     break;
                 case 6:
+                    listaRecortada(lista);
+                    break;
+                case 7:
                     x = true;
                     break;
             }
@@ -127,13 +130,34 @@ public class Tienda {
     private ArrayList<Tenis> agregarTenis(ArrayList<Tenis> listaOriginal) throws IOException {
         Tienda ob2 = new Tienda();
         ArrayList<Tenis> lista = new ArrayList();
-        
+
         lista = ob2.listaTenis();
-        
-        for(int i = 0; i < lista.size(); i++){
+
+        for (int i = 0; i < lista.size(); i++) {
             listaOriginal.add(lista.get(i));
         }
-        
+
         return listaOriginal;
+    }
+
+    private ArrayList<Tenis> listaRecortada(ArrayList<Tenis> lista) {
+        Tenis[] a = new Tenis[lista.size()];
+        int[] b = new int[lista.size()];
+        int contador = 0;
+
+        for (int i = 0; i < lista.size(); i++) {
+            for (int j = 0; j < lista.size(); j++) {
+                if(lista.get(i).getPrecio() == lista.get(j).getPrecio() && lista.get(i).getTenis().equals(lista.get(j).getTenis())){
+                    contador++;
+                }
+            }
+            b[i] = contador;
+            contador = 0;
+        }
+
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i).getPrecio() + " " + b[i]);
+        }
+        return lista;
     }
 }
