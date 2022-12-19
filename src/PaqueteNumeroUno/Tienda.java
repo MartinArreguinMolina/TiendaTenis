@@ -64,7 +64,7 @@ public class Tienda {
                         + "\n3.Ordenar por precio del mayor al menor"
                         + "\n4.Mostrar"
                         + "\n5.Agregar"
-                        + "\nSalir");
+                        + "\n6.Salir");
                 System.err.print("R= ");
                 try {
 
@@ -91,11 +91,8 @@ public class Tienda {
                     lista = agregarTenis(listaAux);
                     break;
                 case 6:
-                    listaRecortada(lista);
-                    break;
-                case 7:
                     x = true;
-                    break;
+                   break;
             }
 
         } while (x == false);
@@ -138,26 +135,5 @@ public class Tienda {
         }
 
         return listaOriginal;
-    }
-
-    private ArrayList<Tenis> listaRecortada(ArrayList<Tenis> lista) {
-        Tenis[] a = new Tenis[lista.size()];
-        int[] b = new int[lista.size()];
-        int contador = 0;
-
-        for (int i = 0; i < lista.size(); i++) {
-            for (int j = 0; j < lista.size(); j++) {
-                if(lista.get(i).getPrecio() == lista.get(j).getPrecio() && lista.get(i).getTenis().equals(lista.get(j).getTenis())){
-                    contador++;
-                }
-            }
-            b[i] = contador;
-            contador = 0;
-        }
-
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println(lista.get(i).getPrecio() + " " + b[i]);
-        }
-        return lista;
     }
 }
